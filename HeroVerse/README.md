@@ -173,18 +173,7 @@ O projeto não tem backend, então a segurança é feita no próprio código:
 
 **Erro dentro do perfil:** com a página carregada, na aba Network clique com o botão direito em qualquer requisição `work/…json`, escolha **Block request URL**, e abra um perfil novo. Só a aba Trabalho mostra erro, e o resto continua funcionando.
 
-## Roteiro sugerido para o vídeo (até 5 minutos)
 
-| Tempo | O que mostrar |
-|---|---|
-| 0:00 – 0:30 | Apresentação do Universo em Quadrinhos, objetivo, identidade visual e tecnologias |
-| 0:30 – 1:15 | Página inicial: banner que troca a cada 5 segundos e os trilhos Populares, Heróis e Vilões com as setas |
-| 1:15 – 2:00 | Busca por "batman" e por nome verdadeiro ("bruce wayne"), validação de campo vazio e "nenhum resultado". Em seguida, o Catálogo com filtros e "Mostrar mais" |
-| 2:00 – 3:00 | Perfil: barras de atributos e as quatro abas. Mostre a aba **Network** com os endpoints sendo chamados |
-| 3:00 – 3:40 | Favoritos (adicionar, recarregar a página, ver no trilho e na tela Favoritos) e a arena de confronto com dois personagens |
-| 3:40 – 4:20 | Erro: modo Offline e botão "Tentar novamente" |
-| 4:20 – 4:50 | Responsividade: modo dispositivo (**Ctrl+Shift+M**) em celular e tablet |
-| 4:50 – 5:00 | Link publicado e encerramento |
 
 ## Decisões de projeto
 
