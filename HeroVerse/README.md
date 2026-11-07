@@ -203,6 +203,12 @@ O projeto não tem backend, então a segurança é feita no próprio código:
 - A busca é feita só pelo nome do personagem e pelo nome verdadeiro, e a API não oferece busca própria.
 - Os dados dependem de um serviço mantido pela comunidade, que pode ficar indisponível. Por isso o tratamento de erros é parte central do projeto.
 
+## Licença
+
+Este projeto é distribuído sob a licença **MIT**. O texto completo está no arquivo [LICENSE](LICENSE).
+
+A licença cobre o código do projeto. Os dados da API, os personagens e as imagens pertencem aos seus respectivos detentores, e as fontes seguem a SIL Open Font License.
+
 ## Créditos e aviso
 
 Projeto acadêmico, sem fins lucrativos. Dados da [Superhero API (Akabab)](https://github.com/akabab/superhero-api), derivada da [superheroapi.com](https://superheroapi.com/). Interface construída com [Bootstrap](https://getbootstrap.com/). Fontes Bangers, Anton e Barlow, licenciadas sob a SIL Open Font License. Personagens e imagens pertencem a seus respectivos detentores (Marvel, DC e outros).
