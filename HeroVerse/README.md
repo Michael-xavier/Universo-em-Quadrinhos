@@ -167,12 +167,6 @@ O projeto não tem backend, então a segurança é feita no próprio código:
 3. No GitHub: **Settings > Pages > Build and deployment**. Em *Source*, escolha **Deploy from a branch**, branch **main**, pasta **/ (root)** e clique em **Save**.
 4. Aguarde 1 a 2 minutos. O endereço será `https://michael-xavier.github.io/Universo-em-Quadrinhos/`.
 
-## Como demonstrar um erro no vídeo
-
-**Falha de conexão:** abra o DevTools (**F12**), aba **Network**, troque *No throttling* por **Offline** e recarregue a página. Aparece "Não foi possível conectar à API" com o botão **Tentar novamente**. Volte para *No throttling* e clique no botão para ver a recuperação.
-
-**Erro dentro do perfil:** com a página carregada, na aba Network clique com o botão direito em qualquer requisição `work/…json`, escolha **Block request URL**, e abra um perfil novo. Só a aba Trabalho mostra erro, e o resto continua funcionando.
-
 
 
 ## Decisões de projeto
