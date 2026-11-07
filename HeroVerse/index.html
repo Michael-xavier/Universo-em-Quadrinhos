@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Universo em Quadrinhos: explore heróis e vilões de diferentes universos, veja atributos e compare personagens.">
+  <meta name="referrer" content="no-referrer">
+
+  <!--
+    SEGURANÇA — Content Security Policy (CSP)
+    Diz ao navegador de onde a página pode carregar scripts, estilos, imagens e dados.
+    Qualquer coisa fora desta lista é bloqueada (ajuda a barrar XSS).
+    Observação: o recarregamento automático da extensão Live Server usa um script
+    "inline" e pode ser bloqueado por esta regra. É normal: recarregue com F5.
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; font-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net; img-src 'self' data: https://cdn.jsdelivr.net https://akabab.github.io; connect-src https://cdn.jsdelivr.net https://akabab.github.io; base-uri 'self'; form-action 'self'; object-src 'none'">
+
+  <title>Universo em Quadrinhos | Heróis e vilões</title>
+  <link rel="icon" type="image/png" sizes="24x24" href="assets/images/favicon.png">
+
+  <!-- Bootstrap 5.3.3 via CDN, com SRI (integrity): o navegador recusa o arquivo se ele for alterado -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/comic-reference.css">
+</head>
+<body class="is-home">
+  <a class="hv-skip" href="#results">Pular para os personagens</a>
+
+  <!-- ======================== CABEÇALHO ======================== -->
+  <header class="hv-navbar">
+    <div class="container hv-navbar-inner">
+      <a class="hv-brand" href="./" aria-label="Universo em Quadrinhos, página inicial">
+        <span class="uq-logo-mark" aria-hidden="true">UQ</span>
+        <span class="uq-logo-text"><strong>UNIVERSO</strong><small>EM QUADRINHOS</small></span>
+      </a>
+
+      <nav class="hv-nav" aria-label="Principal">
+        <button type="button" class="hv-nav-btn is-active" data-view="explore" aria-current="page">Início</button>
+        <button type="button" class="hv-nav-btn" data-action="catalog">Catálogo</button>
+        <button type="button" class="hv-nav-btn" data-view="favorites">
+          Favoritos <span id="fav-count" class="hv-count" hidden>0</span>
+        </button>
+      </nav>
+
+      <form id="search-form" class="hv-search" novalidate>
+        <label for="search-input" class="visually-hidden">Nome do personagem</label>
+        <input id="search-input" type="search" class="form-control"
+               placeholder="Buscar personagem…"
+               maxlength="40" autocomplete="off" spellcheck="false"
+               aria-describedby="search-feedback" disabled>
+        <button id="search-button" type="submit" class="btn btn-hv" disabled>Carregando…</button>
+        <div id="search-feedback" class="hv-feedback" role="alert"></div>
+      </form>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ======================== BANNER PRINCIPAL ======================== -->
+    <section id="hero" class="hv-hero" aria-label="Personagem em destaque">
+      <div id="hero-banner" class="hv-banner">
+        <div class="container hv-banner-inner">
+          <div class="hv-banner-copy">
+            <h1 class="hv-title">Universo em Quadrinhos</h1>
+            <p class="hv-tagline">Explore heróis, vilões, poderes e histórias de diferentes universos. Escolha seus personagens favoritos e descubra quem leva a melhor.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== TRILHOS (PÁGINA INICIAL) ======================== -->
+    <div id="home-rails" class="hv-rails" hidden></div>
+
+    <!-- ======================== RESULTADOS ======================== -->
+    <section id="results" class="container hv-results" aria-labelledby="results-title" tabindex="-1">
+
+      <div class="hv-results-head">
+        <div>
+          <h2 id="results-title" class="hv-results-title">Destaques</h2>
+          <p id="results-note" class="hv-results-note"></p>
+        </div>
+
+        <div id="filters" class="hv-filters">
+          <div>
+            <label for="filter-publisher" class="visually-hidden">Editora</label>
+            <select id="filter-publisher" class="form-select form-select-sm" disabled>
+              <option value="all">Todas as editoras</option>
+              <option value="marvel">Marvel</option>
+              <option value="dc">DC</option>
+              <option value="other">Outras</option>
+            </select>
+          </div>
+          <div>
+            <label for="filter-alignment" class="visually-hidden">Alinhamento</label>
+            <select id="filter-alignment" class="form-select form-select-sm" disabled>
+              <option value="all">Heróis e vilões</option>
+              <option value="good">Só heróis</option>
+              <option value="bad">Só vilões</option>
+              <option value="neutral">Só neutros</option>
+            </select>
+          </div>
+          <div>
+            <label for="filter-sort" class="visually-hidden">Ordenar por</label>
+            <select id="filter-sort" class="form-select form-select-sm" disabled>
+              <option value="power">Maior poder total</option>
+              <option value="name">Nome (A–Z)</option>
+            </select>
+          </div>
+          <button id="reset-button" type="button" class="btn btn-outline-light btn-sm" hidden>Limpar busca e filtros</button>
+        </div>
+      </div>
+
+      <!-- Carregando, erros e "nenhum resultado" aparecem aqui -->
+      <div id="status-area" aria-live="polite"></div>
+
+      <!-- Os cards são criados pelo JavaScript -->
+      <div id="characters-grid" class="row g-3 g-lg-4"></div>
+
+      <div id="load-more-wrap" class="text-center mt-4" hidden>
+        <button id="load-more" type="button" class="btn btn-outline-light">Mostrar mais</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="hv-footer">
+    <div class="container">
+      <p class="mb-1">Universo em Quadrinhos é um projeto acadêmico sem fins lucrativos, feito com HTML, CSS, JavaScript puro e Bootstrap.</p>
+      <p class="mb-0">
+        Dados da
+        <a href="https://github.com/akabab/superhero-api" target="_blank" rel="noopener noreferrer">Superhero API (Akabab)</a>,
+        derivada da
+        <a href="https://superheroapi.com/" target="_blank" rel="noopener noreferrer">superheroapi.com</a>.
+        Personagens e imagens pertencem a seus respectivos detentores.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ======================== BARRA DE COMPARAÇÃO ======================== -->
+  <section id="compare-tray" class="hv-tray" aria-label="Personagens selecionados para comparar" hidden></section>
+
+  <!-- Mensagens rápidas (toast) -->
+  <div id="toast-area" class="hv-toast-area" role="status" aria-live="polite"></div>
+
+  <!-- ======================== MODAL: PERFIL ======================== -->
+  <div class="modal fade" id="profile-modal" tabindex="-1" aria-labelledby="profile-title-modal" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="profile-title-modal">Perfil do personagem</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body" id="profile-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== MODAL: COMPARAÇÃO ======================== -->
+  <div class="modal fade" id="compare-modal" tabindex="-1" aria-labelledby="compare-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable hv-arena-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="compare-title">Arena de confronto</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body" id="compare-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS (com SRI) -->
+  <script defer
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+          crossorigin="anonymous"></script>
+
+  <!-- Nossos scripts. A ORDEM IMPORTA: quem é usado precisa vir antes de quem usa. -->
+  <script defer src="js/utils.js"></script>
+  <script defer src="js/api.js"></script>
+  <script defer src="js/favorites.js"></script>
+  <script defer src="js/characters.js"></script>
+  <script defer src="js/compare.js"></script>
+  <script defer src="js/home.js"></script>
+  <script defer src="js/main.js"></script>
+</body>
+</html>
