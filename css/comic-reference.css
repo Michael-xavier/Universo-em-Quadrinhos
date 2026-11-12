@@ -1,4 +1,3 @@
-
 /* ==========================================================================
    UNIVERSO EM QUADRINHOS — adaptação do mockup visual enviado pelo usuário.
    Mantém Bootstrap e o HTML/JS funcionais do projeto original.
@@ -456,4 +455,36 @@ a:hover { color: var(--hv-yellow); }
   -webkit-text-fill-color: var(--hv-yellow);
   -webkit-text-stroke: 0;
   filter: none;
+}
+
+/* ==========================================================================
+   Correção para iPhone (Safari): títulos em estilo HQ
+
+   Os títulos com gradiente recebiam DUAS técnicas de contorno ao mesmo tempo
+   (-webkit-text-stroke + text-shadow, vindas de dois temas). O Chrome esconde
+   a sobreposição, mas o Safari do iPhone desenha as sombras por cima das letras.
+
+   Aqui ficam só uma técnica, igual em todos os navegadores: o gradiente
+   preenche as letras e o contorno preto + a sombra azul vêm de drop-shadow
+   (que nunca desenha por cima do texto).
+   ========================================================================== */
+.hv-title,
+.hv-banner-name,
+#profile-modal .modal-title {
+  --hv-outline: max(1.5px, 0.035em);
+  /* vermelho com o topo amarelo, como no PC */
+  background: linear-gradient(180deg, #ffe600 0%, #ff9f1a 20%, #ff0033 52%, #ff0033 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0;
+  paint-order: normal;
+  text-shadow: none;
+  filter:
+    drop-shadow(var(--hv-outline) 0 0 #000)
+    drop-shadow(calc(var(--hv-outline) * -1) 0 0 #000)
+    drop-shadow(0 var(--hv-outline) 0 #000)
+    drop-shadow(0 calc(var(--hv-outline) * -1) 0 #000)
+    drop-shadow(3px 3px 0 var(--hv-blue));
 }
