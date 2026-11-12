@@ -34,7 +34,7 @@ const Home = (() => {
     ["Ultron"],
     ["Doctor Doom"],
     ["Superman"],
-    ["Thanos"],
+    ["Thor"],
     ["Darkseid"],
     
   ];
