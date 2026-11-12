@@ -33,7 +33,10 @@ const Home = (() => {
     ["Human Torch"],
     ["Ultron"],
     ["Doctor Doom"],
-
+    ["SUPERMAN"],
+    ["THANOS"],
+    ["DARKSEID"],
+    
   ];
 
   let featuredHeroes = [];
