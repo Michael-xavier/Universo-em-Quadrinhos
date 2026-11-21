@@ -488,3 +488,51 @@ a:hover { color: var(--hv-yellow); }
     drop-shadow(0 calc(var(--hv-outline) * -1) 0 #000)
     drop-shadow(3px 3px 0 var(--hv-blue));
 }
+
+/* ==========================================================================
+   Celular: nomes sem corte nos cards, na barra de comparação e na arena
+
+   Nos cards em 2 colunas sobrava pouco espaço para o nome, que era cortado
+   com "…" (ex.: "MAN OF MIRAC…"). Em telas pequenas o nome fica um pouco
+   menor e pode usar até 3 linhas. O mesmo vale para o nome verdadeiro,
+   para os nomes da barra de comparação e para as etiquetas da arena.
+   No computador nada muda (exceto as etiquetas da arena, que agora quebram
+   de linha em vez de serem cortadas).
+   ========================================================================== */
+.cmp-hero .hv-tag {
+  white-space: normal;
+  text-align: center;
+  line-height: 1.15;
+  padding-block: 0.25rem;
+}
+
+@media (max-width: 575.98px) {
+  .hv-card-name {
+    right: 3.1rem;
+    font-size: clamp(1.1rem, 5.6vw, 1.4rem);
+    letter-spacing: 0.02em;
+    line-height: 1;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  .hv-card-real {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.25;
+  }
+
+  .hv-slot-name {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.1;
+  }
+}
