@@ -536,3 +536,53 @@ a:hover { color: var(--hv-yellow); }
     line-height: 1.1;
   }
 }
+
+/* ==========================================================================
+   Celular: botões do banner alinhados
+
+   Antes, "Ver detalhes" e "Favoritar" ficavam lado a lado e "Comparar" caía
+   sozinho embaixo, com largura diferente. Agora:
+     linha 1: Ver detalhes (largura total)
+     linha 2: Favoritar e Comparar, com a mesma largura
+   ========================================================================== */
+@media (max-width: 767.98px) {
+  .hv-banner-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    max-width: 30rem;
+  }
+  .hv-banner-actions .btn {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 0.5rem;
+  }
+  .hv-banner-actions .btn-hv {
+    grid-column: 1 / -1;
+  }
+  .hv-banner-actions .hv-fav-btn,
+  .hv-banner-actions .hv-compare-btn {
+    white-space: normal;
+    line-height: 1.1;
+  }
+  /* o adesivo "ZAP!" fica dentro da tela */
+  .hv-banner-actions .btn-hv::after {
+    right: -0.2rem;
+  }
+}
+
+/* ==========================================================================
+   Botões "Favoritar" e "Comparar" do banner: texto nítido
+
+   O texto desses botões é preto, e ainda recebia uma sombra preta de 1px.
+   Preto sobre preto engrossa e recorta as letras e dá a impressão de texto
+   duplicado. A sombra continua só onde o texto é branco ("Ver detalhes" e
+   "Nos favoritos", que fica vermelho quando ativo).
+   ========================================================================== */
+.hv-banner-actions .hv-compare-btn,
+.hv-banner-actions .hv-fav-btn:not(.is-active) {
+  text-shadow: none;
+}
+.hv-banner-actions .btn {
+  font-synthesis: none; /* impede negrito artificial numa fonte que só tem peso normal */
+}
