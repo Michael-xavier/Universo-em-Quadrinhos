@@ -488,3 +488,142 @@ a:hover { color: var(--hv-yellow); }
     drop-shadow(0 calc(var(--hv-outline) * -1) 0 #000)
     drop-shadow(3px 3px 0 var(--hv-blue));
 }
+
+/* ==========================================================================
+   Celular: nomes sem corte nos cards, na barra de comparação e na arena
+
+   Nos cards em 2 colunas sobrava pouco espaço para o nome, que era cortado
+   com "…" (ex.: "MAN OF MIRAC…"). Em telas pequenas o nome fica um pouco
+   menor e pode usar até 3 linhas. O mesmo vale para o nome verdadeiro,
+   para os nomes da barra de comparação e para as etiquetas da arena.
+   No computador nada muda (exceto as etiquetas da arena, que agora quebram
+   de linha em vez de serem cortadas).
+   ========================================================================== */
+.cmp-hero .hv-tag {
+  white-space: normal;
+  text-align: center;
+  line-height: 1.15;
+  padding-block: 0.25rem;
+}
+
+@media (max-width: 575.98px) {
+  .hv-card-name {
+    right: 3.1rem;
+    font-size: clamp(1.1rem, 5.6vw, 1.4rem);
+    letter-spacing: 0.02em;
+    line-height: 1;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  .hv-card-real {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.25;
+  }
+
+  .hv-slot-name {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.1;
+  }
+}
+
+/* ==========================================================================
+   Celular: barra de comparação mais compacta
+
+   Antes ocupava 139px de altura em qualquer celular. Agora os dois
+   personagens ficam lado a lado em uma linha pequena e os botões logo abaixo,
+   ocupando bem menos da tela. O espaço reservado no fim da página acompanha
+   a altura da barra (e a área do "home indicator" do iPhone).
+   ========================================================================== */
+@media (max-width: 575.98px) {
+  body.has-tray { padding-bottom: calc(7rem + env(safe-area-inset-bottom, 0px)); }
+
+  .hv-tray { border-top-width: 4px; }
+  .hv-tray-inner { padding-block: 0.45rem; gap: 0.4rem; }
+
+  .hv-slots { flex: 1 1 100%; flex-wrap: nowrap; gap: 0.4rem; }
+  .hv-slot {
+    flex: 1 1 0;
+    min-width: 0;
+    gap: 0.35rem;
+    padding: 0.2rem 0.3rem;
+    min-height: 2.5rem;
+    box-shadow: 2px 2px 0 #000;
+  }
+  .hv-slot--empty { font-size: 0.75rem; line-height: 1.1; }
+  .hv-slot-img { width: 1.4rem; height: 2rem; }
+  .hv-slot-name { font-size: 0.8rem; }
+
+  .hv-tray-actions {
+    flex: 1 1 100%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 0.4rem;
+  }
+  .hv-tray-actions .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 1.05rem;
+    line-height: 1.2;
+    box-shadow: 2px 2px 0 #000;
+  }
+}
+
+/* ==========================================================================
+   Celular: botões do banner alinhados
+
+   Antes, "Ver detalhes" e "Favoritar" ficavam lado a lado e "Comparar" caía
+   sozinho embaixo, com largura diferente. Agora:
+     linha 1: Ver detalhes (largura total)
+     linha 2: Favoritar e Comparar, com a mesma largura
+   ========================================================================== */
+@media (max-width: 767.98px) {
+  .hv-banner-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    max-width: 30rem;
+  }
+  .hv-banner-actions .btn {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 0.5rem;
+  }
+  .hv-banner-actions .btn-hv {
+    grid-column: 1 / -1;
+  }
+  .hv-banner-actions .hv-fav-btn,
+  .hv-banner-actions .hv-compare-btn {
+    white-space: normal;
+    line-height: 1.1;
+  }
+  /* o adesivo "ZAP!" fica dentro da tela */
+  .hv-banner-actions .btn-hv::after {
+    right: -0.2rem;
+  }
+}
+
+/* ==========================================================================
+   Botões "Favoritar" e "Comparar" do banner: texto nítido
+
+   O texto desses botões é preto, e ainda recebia uma sombra preta de 1px.
+   Preto sobre preto engrossa e recorta as letras e dá a impressão de texto
+   duplicado (principalmente no iPhone). A sombra continua só onde o texto é
+   branco ("Ver detalhes" e "Nos favoritos", que fica vermelho quando ativo).
+   ========================================================================== */
+.hv-banner-actions .hv-compare-btn,
+.hv-banner-actions .hv-fav-btn:not(.is-active) {
+  text-shadow: none;
+}
+.hv-banner-actions .btn {
+  font-synthesis: none; /* impede negrito artificial numa fonte que só tem peso normal */
+}
